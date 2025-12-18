@@ -1,0 +1,30 @@
+# Stage 1: Build React Frontend
+FROM node:20-alpine as build-frontend
+WORKDIR /app
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ .
+# HF Spaces exposes the app on port 7860 usually, but we will serve it from the backend.
+# The API URL will be relative if we serve from same origin.
+ENV VITE_API_URL=/api
+RUN npm run build
+
+# Stage 2: Setup Python Backend
+FROM python:3.11-slim
+WORKDIR /app
+
+# Copy Backend requirements
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy Backend Code
+COPY backend/ .
+
+# Copy Frontend Build to a static directory in Backend
+COPY --from=build-frontend /app/dist /app/static
+
+# Expose the correct port for HF Spaces (7860 is standard)
+EXPOSE 7860
+
+# Command to run the app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]
