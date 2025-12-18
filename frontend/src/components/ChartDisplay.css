@@ -1,0 +1,64 @@
+.chart-container {
+    background-color: var(--color-card);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.chart-toggles {
+    display: flex;
+    gap: 0.5rem;
+    background-color: #0f172a;
+    padding: 0.25rem;
+    border-radius: 8px;
+}
+
+.chart-toggles button {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.chart-toggles button.active {
+    background-color: #334155;
+    color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.custom-tooltip {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.custom-tooltip .label {
+    color: #f8fafc;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.chart-placeholder {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-style: italic;
+}

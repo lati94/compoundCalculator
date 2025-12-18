@@ -1,0 +1,179 @@
+/* Global reset for full screen */
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    /* Prevent body scroll */
+    background-color: #0f172a;
+}
+
+/* App Flex Container */
+.app-container {
+    height: 100vh;
+    width: 100%;
+    max-width: 1400px;
+    /* Restored Horizontal Constraint */
+    margin: 0 auto;
+    /* Center Horizontally */
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    /* Reduced padding */
+    box-sizing: border-box;
+}
+
+.app-header {
+    flex: 0 0 auto;
+    margin-bottom: 1rem;
+    /* Compact header */
+}
+
+.app-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+    background: linear-gradient(to right, #8b5cf6, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.app-header p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Main Grid Content - Fills remaining space */
+.main-content {
+    flex: 1;
+    min-height: 0;
+    /* Crucial for nested scroll/flex */
+    display: grid;
+    gap: 1rem;
+
+    /* Mobile Default: Stacked with scroll */
+    overflow-y: auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "controls"
+        "kpi"
+        "graph"
+        "retirement";
+}
+
+@media (min-width: 1024px) {
+    .main-content {
+        overflow-y: hidden;
+        /* No scroll on desktop */
+        grid-template-columns: 1fr 1fr;
+        /* Row 1: Controls & KPIs (Auto height based on content) */
+        /* Row 2: Graph (Takes all remaining space) */
+        /* Row 3: Retirement (Auto height at bottom) */
+        grid-template-rows: auto 1fr auto;
+
+        grid-template-areas:
+            "controls kpi"
+            "graph graph"
+            "retirement retirement";
+    }
+}
+
+.area-controls {
+    grid-area: controls;
+}
+
+.area-kpi {
+    grid-area: kpi;
+}
+
+.area-graph {
+    grid-area: graph;
+    min-height: 0;
+    /* Important for chart resize */
+}
+
+.area-retirement {
+    grid-area: retirement;
+}
+
+/* Panels */
+.calculator-form,
+.kpi-section,
+.chart-container,
+.summary-cards {
+    height: 100%;
+    overflow: hidden;
+    /* Contain inner flows */
+    background-color: var(--color-card);
+    border-radius: 12px;
+}
+
+/* Calculator Form Tweaks for Compactness */
+.calculator-form {
+    padding: 1.5rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.settings-row {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Support Scroll inside form if screen is crazy small */
+.calculator-form {
+    overflow-y: auto;
+}
+
+/* Summary Cards Grid */
+.summary-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    background: transparent;
+    /* Remove bg from container, cards have it */
+}
+
+/* KPI Section */
+.kpi-section {
+    padding: 1rem;
+    gap: 1rem;
+    display: flex;
+    /* Flex row for bottom KPIs? Or grid? Grid is fine. */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    background-color: var(--color-card);
+}
+
+.kpi-card {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+}
+
+.kpi-card h4 {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+}
+
+.kpi-card .kpi-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+/* Override error banner */
+.error-banner {
+    flex: 0 0 auto;
+    margin-bottom: 1rem;
+}
